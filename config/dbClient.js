@@ -4,7 +4,7 @@ import {MongoClient} from 'mongodb';
 
 class dbClient{
     constructor(){
-       //const queryString = `mongodb://${process.env.USER_DB}:${process.env.PASS_DB}@${process.env.DB_HOSTS}/?ssl=true&replicaSet=${process.env.DB_REPLICA_SET}&authSource=${process.env.DB_AUTH_SOURCE}&appName=adopcion`;
+       const queryString = `mongodb://${process.env.USER_DB}:${process.env.PASS_DB}@${process.env.DB_HOSTS}/?ssl=true&replicaSet=${process.env.DB_REPLICA_SET}&authSource=${process.env.DB_AUTH_SOURCE}&appName=adopcion`;
        
         this.client = new MongoClient(queryString);
         this.conectarDB();

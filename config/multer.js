@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
     filename: (req, file, cb) => {
         // Nombre único (timestamp + aleatorio) conservando la extensión original
         const ext = path.extname(file.originalname);
-        cb(null, `${Date.now()}-${Math.round(Math.random() * 1e9)}${ext}`);
+        cb(null, `${Date.now()}-${Math.round(Math.random() * 1e9)}${ext}`); // Guardamos como .webp
     }
 });
 

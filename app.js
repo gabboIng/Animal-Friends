@@ -6,6 +6,8 @@ import { fileURLToPath } from 'url';
 import 'dotenv/config';
 import routesMascotas from './routes/mascotas.js';
 import dbClient from './config/dbClient.js';
+import routesUsuario from './routes/usuario.js';
+import { globalErrorHandler } from './middlewares/errorHandler.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -16,6 +18,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // (ej: http://localhost:5100/uploads/nombre-archivo.png)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/mascotas', routesMascotas);
+app.use('/usuario', routesUsuario);
+
+app.use(globalErrorHandler);
 
 try {
   const PORT = process.env.PORT || 3000;

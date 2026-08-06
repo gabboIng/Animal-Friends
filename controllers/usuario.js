@@ -12,6 +12,12 @@ class usuarioController {
         if (!nombre || !apellido || !email || !clave) {
             return next(new AppError('Todos los campos obligatorios deben ser completados', 400));
         }
+
+        //verificar si el email existe
+        const existe = await usuariosModel.getOneByEmail(email);
+        if (existe) {
+            return next(new AppError('El email ya está registrado', 409));
+        }
         const hash = await bcrypt.hash(clave, 10);
         const data = await usuariosModel.create({ nombre, apellido, email, clave: hash, telefono });
         res.status(201).json({ status: "ok", message: "Usuario registrado exitosamente", usuario: data });

@@ -1,51 +1,55 @@
 import mascotasModel from '../models/mascotas.js';
+import procesarImagen from '../config/procesarImagen.js';
+import { catchAsync } from '../utils/catchAsync.js';
+import { AppError } from '../utils/AppError.js';
 
+const limpiarBody = (body) => {
+    for (const key of Object.keys(body)) {
+        if (body[key] === "") delete body[key];
+    }
+    return body;
+};
 
 class mascotasController {
-    constructor() {
+    constructor() {}
 
-    }
-
-    async create(req, res) {
-        try{
-            const data = await mascotasModelo.create(req.body);
-            res.status(201).json(data);
-        }catch(e){
-            res.status(500).json({status: "create-error", message: "Error al crear la mascota"});
+    create = catchAsync(async (req, res, next) => {
+        limpiarBody(req.body);
+        if (req.file) {
+            await procesarImagen(req.file.path);
+            req.body.imagen = "/uploads/" + req.file.filename.replace(/\.[^.]+$/, '.webp');
         }
-    }
+        const data = await mascotasModel.create(req.body);
+        res.status(201).json(data);
+    });
 
-    async update(req, res) {
-        try{
-            res.status(200).json({status: "update-ok", message: "Mascota actualizada correctamente"});
-        }catch(e){
-            res.status(500).json({status: "update-error", message: "Error al actualizar la mascota"});
+    update = catchAsync(async (req, res, next) => {
+        limpiarBody(req.body);
+        if (req.file) {
+            await procesarImagen(req.file.path);
+            req.body.imagen = "/uploads/" + req.file.filename.replace(/\.[^.]+$/, '.webp');
         }
-    }
+        const data = await mascotasModel.update(req.params.id, req.body);
+        if (!data) return next(new AppError('Mascota no encontrada', 404));
+        res.status(200).json(data);
+    });
 
-    async delete(req, res) {
-        try{
-            res.status(200).json({status: "delete-ok", message: "Mascota eliminada correctamente"});
-        }catch(e){
-            res.status(500).json({status: "delete-error", message: "Error al eliminar la mascota"});
-        }
-    }
+    delete = catchAsync(async (req, res, next) => {
+        const data = await mascotasModel.delete(req.params.id);
+        if (!data) return next(new AppError('Mascota no encontrada', 404));
+        res.status(200).json({ status: 'ok', message: 'Mascota eliminada' });
+    });
 
-    async getAll(req, res) {
-        try{
-            res.status(200).json({status: "getall-ok", message: "Mascotas obtenidas correctamente"});
-        }catch(e){
-            res.status(500).json({status: "getall-error", message: "Error al obtener las mascotas"});
-        }
-    }
+    getAll = catchAsync(async (req, res, next) => {
+        const data = await mascotasModel.getAll();
+        res.status(200).json(data);
+    });
 
-    async getOne(req, res) {
-        try{
-            res.status(200).json({status: "getone-ok", message: "Mascota obtenida correctamente"});
-        }catch(e){
-            res.status(500).json({status: "getone-error", message: "Error al obtener la mascota"});
-        }
-    }
+    getOne = catchAsync(async (req, res, next) => {
+        const data = await mascotasModel.getOne(req.params.id);
+        if (!data) return next(new AppError('Mascota no encontrada', 404));
+        res.status(200).json(data);
+    });
 }
 
 export default new mascotasController();

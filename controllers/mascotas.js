@@ -16,8 +16,8 @@ class mascotasController {
     create = catchAsync(async (req, res, next) => {
         limpiarBody(req.body);
         if (req.file) {
-            req.body.imagen = "/uploads/" + req.file.filename;
             await procesarImagen(req.file.path);
+            req.body.imagen = "/uploads/" + req.file.filename.replace(/\.[^.]+$/, '.webp');
         }
         const data = await mascotasModel.create(req.body);
         res.status(201).json(data);
@@ -26,8 +26,8 @@ class mascotasController {
     update = catchAsync(async (req, res, next) => {
         limpiarBody(req.body);
         if (req.file) {
-            req.body.imagen = "/uploads/" + req.file.filename;
             await procesarImagen(req.file.path);
+            req.body.imagen = "/uploads/" + req.file.filename.replace(/\.[^.]+$/, '.webp');
         }
         const data = await mascotasModel.update(req.params.id, req.body);
         if (!data) return next(new AppError('Mascota no encontrada', 404));

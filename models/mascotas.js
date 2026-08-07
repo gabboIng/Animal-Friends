@@ -17,6 +17,19 @@ class mascotasModelo{
         return await Mascota.find();
     }
 
+    // ===== PAGINACIÓN =====
+    async getPaginated(page = 1, limit = 6) {
+        const skip = (page - 1) * limit;
+        return await Mascota.find({ adoptado: false })
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit);
+    }
+
+    async countTotal() {
+        return await Mascota.countDocuments({ adoptado: false });
+    }
+
     async getOne(id){
         return await Mascota.findById(id);
     }

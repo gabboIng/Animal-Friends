@@ -24,7 +24,7 @@ const storage = multer.diskStorage({
 
 export default multer({
     storage,                    // Guarda en disco (carpeta uploads)
-    limits: { fileSize: 5 * 1024 * 1024 }, // Tamaño máximo: 5 MB
+    limits: { fileSize: 10 * 1024 * 1024 }, // Tamaño máximo: 10 MB
     fileFilter: (req, file, cb) => {
         // Solo acepta archivos con formato de imagen
         const ok = ["image/jpeg", "image/png", "image/webp", "image/gif"].includes(file.mimetype);

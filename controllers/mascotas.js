@@ -18,6 +18,11 @@ class mascotasController {
         if (req.file) {
             await procesarImagen(req.file.path);
             req.body.imagen = "/uploads/" + req.file.filename.replace(/\.[^.]+$/, '.webp');
+        } else {
+            req.body.imagen = "/img/imagen_De_Perfil.png";
+        }
+        if (!req.body.descripcion) {
+            req.body.descripcion = "Easta mascota espera un hogar";
         }
         const data = await mascotasModel.create(req.body);
         res.status(201).json(data);

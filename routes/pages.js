@@ -22,7 +22,7 @@ async function obtenerMascotas(page = 1, limit = 6) {
 // ===== PÁGINA INICIAL (HTML) =====
 router.get('/', async (req, res) => {
     const data = await obtenerMascotas(1, 6);
-    res.render('home', data);
+    res.render('home', { ...data, mostrarLogout: true });
 });
 
 // ===== API JSON para fetch del paginador =====
@@ -33,7 +33,7 @@ router.get('/api/mascotas', async (req, res) => {
     res.json(data);
 });
 
-router.get('/registro', (req, res) => { res.render('registro'); });
-router.get('/login', (req, res) => { res.render('login'); });
+router.get('/registro', (req, res) => { res.render('registro', { mostrarLogin: true }); });
+router.get('/login', (req, res) => { res.render('login', { mostrarRegistro: true }); });
 
 export default router;

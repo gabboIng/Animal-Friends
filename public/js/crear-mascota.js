@@ -40,6 +40,13 @@ document.getElementById('formCrearMascota').addEventListener('submit', async (e)
         const data = await res.json();
 
         if (res.ok) {
+            await Swal.fire({
+                title: 'Mascota agregada',
+                text: 'La mascota se publicó con éxito',
+                icon: 'success',
+                confirmButtonColor: '#FF6F61',
+                confirmButtonText: 'OK'
+            });
             window.location.href = '/';
         } else {
             const msg = document.getElementById('mensaje');

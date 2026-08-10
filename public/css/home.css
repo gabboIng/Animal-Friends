@@ -167,15 +167,34 @@
     font-weight: 500;
 }
 
+.card-botones {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.btn-editar,
+.btn-eliminar {
+    border: none;
+    border-radius: 8px;
+    padding: 5px 14px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    flex: 1;
+}
+
+.btn-editar {
+    background: var(--secondary);
+    color: white;
+}
+.btn-editar:hover {
+    background: #3a7bc8;
+}
+
 .btn-eliminar {
     background: #ff4d4d;
     color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 4px 12px;
-    font-size: 0.75rem;
-    cursor: pointer;
-    margin-top: 6px;
 }
 .btn-eliminar:hover {
     background: #cc0000;

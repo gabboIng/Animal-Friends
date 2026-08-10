@@ -39,6 +39,9 @@
                         <h5 class="card-title">{{this.nombre}}</h5>
                         <p class="card-info">{{this.tipo}} · {{this.edad}} años</p>
                         <p class="card-desc">{{this.descripcion}}</p>
+                        {{#if ../mostrarLogout}}
+                        <button class="btn-eliminar" data-id="{{this._id}}">Eliminar</button>
+                        {{/if}}
                     </div>
                 </div>
             </div>

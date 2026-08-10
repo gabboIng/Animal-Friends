@@ -167,6 +167,20 @@
     font-weight: 500;
 }
 
+.btn-eliminar {
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    margin-top: 6px;
+}
+.btn-eliminar:hover {
+    background: #cc0000;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
     .hero {

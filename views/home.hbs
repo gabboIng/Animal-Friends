@@ -19,7 +19,9 @@
             <div class="hero-texto">
                 <h1>Adoptá una mascota</h1>
                 <p>Dale un hogar a un amigo de cuatro patas. Explora nuestra lista de mascotas esperando por una familia.</p>
-                <a href="#mascotas" class="btn-primary-custom btn-buscar">🔍 Buscar Mascotas</a>
+            <div d-grid >
+                <a href="/crear-mascota" class="btn-primary-custom btn-buscar">+ Agregar Mascota</a>
+            </div>
             </div>
             <div class="hero-imagen"></div>
         </section>
@@ -37,6 +39,12 @@
                         <h5 class="card-title">{{this.nombre}}</h5>
                         <p class="card-info">{{this.tipo}} · {{this.edad}} años</p>
                         <p class="card-desc">{{this.descripcion}}</p>
+                        {{#if ../mostrarLogout}}
+                        <div class="card-botones">
+                            <button class="btn-editar" data-id="{{this._id}}" data-nombre="{{this.nombre}}" data-tipo="{{this.tipo}}" data-sexo="{{this.sexo}}" data-edad="{{this.edad}}" data-descripcion="{{this.descripcion}}" data-imagen="{{this.imagen}}" data-adoptado="{{this.adoptado}}">Editar</button>
+                            <button class="btn-eliminar" data-id="{{this._id}}">Eliminar</button>
+                        </div>
+                        {{/if}}
                     </div>
                 </div>
             </div>
@@ -63,6 +71,71 @@
         {{/if}}
 
     </main>
+
+    <!-- Modal Editar Mascota -->
+    <div class="modal fade" id="modalEditar" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Mascota</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formEditar">
+                        <input type="hidden" id="editarId">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" id="editarNombre" class="form-control" required>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label class="form-label">Tipo</label>
+                                <select id="editarTipo" class="form-control" required>
+                                    <option value="Perro">Perro</option>
+                                    <option value="Gato">Gato</option>
+                                    <option value="Ave">Ave</option>
+                                    <option value="Otro">Otro</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label class="form-label">Sexo</label>
+                                <select id="editarSexo" class="form-control" required>
+                                    <option value="Macho">Macho</option>
+                                    <option value="Hembra">Hembra</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label class="form-label">Edad</label>
+                                <input type="number" id="editarEdad" class="form-control" min="0" max="30" step="0.5" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Descripción</label>
+                            <textarea id="editarDescripcion" class="form-control" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3 text-center">
+                            <label class="form-label">Imagen actual</label>
+                            <div>
+                                <img id="editarPreview" src="" alt="Imagen actual" class="img-fluid rounded" style="max-height: 180px;">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Nueva imagen (opcional)</label>
+                            <input type="file" id="editarImagen" class="form-control" accept="image/*">
+                        </div>
+                        <div class="form-check mb-3">
+                            <input type="checkbox" id="editarAdoptado" class="form-check-input">
+                            <label class="form-check-label">¿Ya adoptado?</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnGuardarEditar">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     {{> footer}}
 </body>

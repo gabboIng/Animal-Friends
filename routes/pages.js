@@ -33,6 +33,12 @@ router.get('/api/mascotas', async (req, res) => {
     res.json(data);
 });
 
+//Crear Mascotas
+
+router.get('/crear-mascota', (req, res) => { 
+    res.render('crear-mascota', { mostrarLogout: true }); 
+});
+
 router.get('/registro', (req, res) => { res.render('registro', { mostrarLogin: true }); });
 router.get('/login', (req, res) => { res.render('login', { mostrarRegistro: true }); });
 

@@ -33,10 +33,13 @@
 
 .btn-buscar {
     display: inline-block;
-    width: auto;
-    padding: 10px 24px;
+    padding: 8px 20px;
     border-radius: 25px;
-    font-size: 0.88rem;
+    font-size: 0.85rem;
+    text-decoration: none;
+    text-align: center;
+    margin-left: 0;
+    white-space: nowrap;
 }
 
 .hero-imagen {
@@ -114,7 +117,6 @@
     margin: 0;
     line-height: 1.3;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -163,6 +165,39 @@
     font-size: 0.9rem;
     color: var(--body);
     font-weight: 500;
+}
+
+.card-botones {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.btn-editar,
+.btn-eliminar {
+    border: none;
+    border-radius: 8px;
+    padding: 5px 14px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    flex: 1;
+}
+
+.btn-editar {
+    background: var(--secondary);
+    color: white;
+}
+.btn-editar:hover {
+    background: #3a7bc8;
+}
+
+.btn-eliminar {
+    background: #ff4d4d;
+    color: white;
+}
+.btn-eliminar:hover {
+    background: #cc0000;
 }
 
 /* ===== RESPONSIVE ===== */
